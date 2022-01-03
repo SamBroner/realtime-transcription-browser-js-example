@@ -1,3 +1,5 @@
+import RecordRTCCtr, { RecordRTC } from './recordrtc';
+
 // required dom elements
 const buttonEl = document.getElementById('button');
 const messageEl = document.getElementById('message');
@@ -23,7 +25,7 @@ const run = async () => {
       recorder = null;
     }
   } else {
-    const response = await fetch('http://localhost:5000'); // get temp session token from server.js (backend)
+    const response = await fetch('http://localhost:5001'); // get temp session token from server.js (backend)
     const data = await response.json();
 
     if(data.error){
@@ -66,10 +68,10 @@ const run = async () => {
       messageEl.style.display = '';
       navigator.mediaDevices.getUserMedia({ audio: true })
         .then((stream) => {
-          recorder = new RecordRTC(stream, {
+          recorder = new RecordRTCCtr(stream, {
             type: 'audio',
             mimeType: 'audio/webm;codecs=pcm', // endpoint requires 16bit PCM audio
-            recorderType: StereoAudioRecorder,
+            recorderType: RecordRTC.StereoAudioRecorder,
             timeSlice: 250, // set 250 ms intervals of data that sends to AAI
             desiredSampRate: 16000,
             numberOfAudioChannels: 1, // real-time requires only one channel

@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.set('port', 5000);
+app.set('port', 5001);
 const server = app.listen(app.get('port'), () => {
   console.log(`Server is running on port ${server.address().port}`);
 });
